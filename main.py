@@ -15,7 +15,7 @@ def login():
     global user_input, parola_input, pin_input
     if request.method == "GET":
         return render_template("login.html")
-
+#test
     if request.method == "POST":
         conn = sqlite3.connect("db_user_parole.db")
         c = conn.cursor()
