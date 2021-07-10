@@ -1,3 +1,3 @@
 git add .
-git commit -m "Inceput pagina de logare"
+git commit -m Versiune finala pagina de logare"
 git push
