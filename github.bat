@@ -1,3 +1,3 @@
 git add .
-git commit -m "Butoane principale BE"
+git commit -m "Inceput animatie css main"
 git push
