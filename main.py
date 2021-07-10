@@ -43,15 +43,19 @@ def login():
         else:
             return redirect(url_for("login"))
 
+#Pagina logout
 @app.route("/logout")
 def logout():
-         
-                
+    session.pop("user_input", None)
+    session.pop("parola_input", None)
+    session.pop("pin_input", None)
+    return redirect(url_for("login"))
+              
 #Pagina main
 @app.route("/main")
 def main():
     if "user_input" and "parola_input" and "pin_input" in session:
-        return "ce faci"
+        return render_template("index.html")
     else:
         return redirect(url_for("login"))
 
