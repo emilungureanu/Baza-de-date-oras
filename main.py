@@ -1,3 +1,4 @@
+import re
 from flask import Flask, sessions, url_for, redirect, render_template, request, session
 import sqlite3
 
@@ -15,7 +16,7 @@ def login():
     global user_input, parola_input, pin_input
     if request.method == "GET":
         return render_template("login.html")
-#test
+
     if request.method == "POST":
         conn = sqlite3.connect("db_user_parole.db")
         c = conn.cursor()
@@ -52,12 +53,25 @@ def logout():
     return redirect(url_for("login"))
               
 #Pagina main
-@app.route("/main")
+@app.route("/main", methods = ["GET", "POST"])
 def main():
     if "user_input" and "parola_input" and "pin_input" in session:
-        return render_template("index.html")
+        if request.method == "GET":
+            return render_template("index.html")
+
+
+
+        if request.method == "POST":
+            if request.form.get("buton_baza_de_date"):
+                return "ce faci"
+            if request.form.get("buton_intrebari"):
+                return "salut"
+
+                    
     else:
         return redirect(url_for("login"))
+
+    
 
 
 #Rulam programul flask

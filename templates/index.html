@@ -5,9 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>main</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'index.css')}}">
 </head>
 <body>
-    <button class="butoane_principale">Baza de date</button>
-    <button class="butoane_principale">Intrebari</button>
+    <form action="#" class="butoane_principale_main" method="post">
+        <button type="submit" name="buton_baza_de_date" value="buton_baza_de_date" class="buton_baza_de_date">Baza de date</button>
+        <button type="submit" name="buton_intrebari" value="buton_intrebari" class="buton_intrebari">Intrebari</button>
+    </form>
 </body>
 </html>

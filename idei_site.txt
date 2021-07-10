@@ -1,0 +1,8 @@
+emil
+    *log-uri pentru orice conectare pentru a nu fi partajate conturile(ip, model dispozitiv)
+    *la publicarea informatiilor despre oameni sa se solicite urmatoarele:
+        -nume, prenume, poza
+        -daca are sau nu spate
+        -*
+    *sa poata utilizator sa aleaga daca vrea ca intrebarea sa fie anonima sau nu(sa apara numele in baza de date privata)
+    *sa avem o pagina de admin
