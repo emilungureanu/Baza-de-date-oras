@@ -1,0 +1,38 @@
+.user_input_box{
+    position: absolute;
+    background-color: rgb(100, 100, 100);
+    color: rgb(255, 241, 231);
+    top: 20%;
+    font-size: 150%;
+    left: 10%;
+}
+.parola_input_box{
+    position: absolute;
+    color: rgb(255, 241, 231);
+    background-color: rgb(100, 100, 100);
+    top: 26%;
+    font-size: 150%;
+    left: 10%;
+}
+.pin_input_box{
+    position: absolute;
+    color: rgb(255, 241, 231);
+    background-color: rgb(100, 100, 100);
+    top: 32%;
+    font-size: 150%;
+    left: 10%;
+}
+body{
+    background-color: rgb(0, 0, 0);
+}
+.text_pdl{
+    color: rgb(255, 255, 255);
+    text-align: center;
+}
+.submit_button{
+    position: absolute;
+    top: 40%;
+    left: 10%;
+    width: 80%;
+    background-color: rgb(0, 110, 255);
+}

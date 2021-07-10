@@ -4,16 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login</title>
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'login.css')}}">
 </head>
 <body>
+    <h1 class=text_pdl>Pagina de Logare</h1>
+
+
+
     <form action="#" class="form_principal" method="post">
-        <input type="text" name="user_input">
-        <input type="text" name="parola_input">
-        <input type="text" name="pin_input">
-        <input type="submit">
+        <input type="text" name="user_input" class="user_input_box">
+        <input type="text" name="parola_input" class="parola_input_box">
+        <input type="text" name="pin_input" class="pin_input_box">
+        <input type="submit" class="submit_button">
     </form>
 
-    {{x_x}}
+    
 </body>
 </html>
