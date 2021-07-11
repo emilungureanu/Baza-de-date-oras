@@ -8,7 +8,7 @@
     height: 50%;
    
     animation-name: buton_baza_de_date1;
-    animation-duration: 15s;
+    animation-duration: 10s;
     animation-iteration-count: infinite;
 }
 .buton_intrebari{
@@ -21,7 +21,7 @@
     height: 50%;
     top: 50%;
     animation-name: buton_intrebari1;
-    animation-duration: 15s;
+    animation-duration: 10s;
     animation-iteration-count: infinite;
 }
 html, body { 

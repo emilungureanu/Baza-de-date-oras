@@ -52,7 +52,7 @@ def logout():
     session.pop("pin_input", None)
     return redirect(url_for("login"))
               
-#Pagina main
+#Pagina main unde alegi baza de date sau intrebari
 @app.route("/main", methods = ["GET", "POST"])
 def main():
     if "user_input" and "parola_input" and "pin_input" in session:
@@ -60,18 +60,40 @@ def main():
             return render_template("index.html")
 
 
-
         if request.method == "POST":
             if request.form.get("buton_baza_de_date"):
-                return "ce faci"
+                return redirect(url_for("alegere_cautare_adaugare"))
+
             if request.form.get("buton_intrebari"):
-                return "salut"
+                return "salut" # de pus intrebari
 
                     
     else:
         return redirect(url_for("login"))
 
+#Pagina alegere cautare sau adaugare persoane
+@app.route("/alegere_cautare_adaugare", methods= ["POST", "GET"])
+def alegere_cautare_adaugare():
+    if request.method == "GET":
+        return render_template("alegere_adaugare_sau_vizionare.html")
     
+    if request.method == "POST":
+        if request.form.get("buton_cautare"):
+            return redirect(url_for("cautare_database"))
+        if request.form.get("buton_adaugare"):
+            return redirect(url_for("adaugare_database"))
+
+#Cautare in baza de date
+@app.route("/cautare_database", methods = ["GET", "POST"])
+def cautare_database():
+    if request.method == "GET":
+        return render_template("cautare_database.html")
+    if request.method == "POST":
+        data_search_principal = request.form["search_principal"]
+#Adaugare in baza de date
+@app.route("/adaugare_database")
+def adaugare_database():
+    return render_template("adaugare_database.html")
 
 
 #Rulam programul flask
