@@ -115,9 +115,26 @@ def pagina_persoana():
 
 
 #Adaugare in baza de date
-@app.route("/adaugare_database")
+@app.route("/adaugare_database", methods = ["POST", "GET"])
 def adaugare_database():
-    return render_template("adaugare_database.html")
+    if request.method == "GET":
+        return render_template("adaugare_database.html")
+
+    if request.method == "POST":
+        input_nume = request.form["input_nume"]
+        input_prenume = request.form["input_prenume"]
+        input_telefon = request.form["input_telefon"]
+        input_varsta = request.form["input_varsta"]
+        input_cartier = request.form["input_cartier"]
+        input_instagram = request.form["input_instagram"]
+        
+
+        conn = sqlite3.connect("db_informatii_principal.db")
+        c = conn.cursor()
+
+        c.execute(f"INSERT INTO persoane VALUES(NULL, '{input_nume}', '{input_prenume}', '{input_telefon}', '{input_varsta}', '{input_cartier}', '180', '{input_instagram}')")
+        conn.commit()
+        return redirect(url_for("main"))
 
 
 #Rulam programul flask

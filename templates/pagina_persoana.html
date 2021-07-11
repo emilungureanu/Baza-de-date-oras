@@ -7,6 +7,14 @@
     <title>Pagina Persoana</title>
 </head>
 <body>
-    {{content}}
+    {% for informatie in content %}
+    <p>Nume: {{informatie[1]}}</p>
+    <p>Prenume: {{informatie[2]}}</p>
+    <p>Nr. de tel: {{informatie[3]}}</p>
+    <p>Varsta: {{informatie[4]}}</p>
+    <p>Cartier: {{informatie[5]}}</p>
+    <p>Instagram: {{informatie[7]}}</p>
+    <p>Detalii: </p>
+    {% endfor %}
 </body>
 </html>
