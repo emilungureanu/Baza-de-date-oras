@@ -87,10 +87,33 @@ def alegere_cautare_adaugare():
 #Cautare in baza de date
 @app.route("/cautare_database", methods = ["GET", "POST"])
 def cautare_database():
+    global content1
+    conn = sqlite3.connect("db_informatii_principal.db")
+    c = conn.cursor()
+
     if request.method == "GET":
         return render_template("cautare_database.html")
+
     if request.method == "POST":
         data_search_principal = request.form["search_principal"]
+
+        if ' ' in data_search_principal:
+            lista_cuvinte_salvate = data_search_principal.split()
+            c.execute(f"SELECT * FROM persoane WHERE nume = '{lista_cuvinte_salvate[0].title() or lista_cuvinte_salvate[1].title()}' OR prenume = '{lista_cuvinte_salvate[0].title() or lista_cuvinte_salvate[1].title()}'")
+
+        else:
+            c.execute(f"SELECT * FROM persoane WHERE nume = '{data_search_principal.title()}' OR prenume = '{data_search_principal.title()}' OR telefon = '{data_search_principal}' OR instagram = '{data_search_principal}'")
+
+        content1 = c.fetchall()
+
+        return redirect(url_for("pagina_persoana"))
+
+
+@app.route("/informatii_persoana")
+def pagina_persoana():
+    return render_template("pagina_persoana.html", content = content1)
+
+
 #Adaugare in baza de date
 @app.route("/adaugare_database")
 def adaugare_database():
