@@ -14,12 +14,21 @@
 
 
         <form action="#" class="form_principal" method="post">
-            <input type="text" name="user_input" class="user_input_box">
-            <input type="text" name="parola_input" class="parola_input_box">
-            <input type="text" name="pin_input" class="pin_input_box">
+            <input placeholder="user" type="text" name="user_input" class="user_input_box">
+            <input placeholder="pass" type="text" name="parola_input" class="parola_input_box">
+            <input placeholder="pin" type="text" name="pin_input" class="pin_input_box">
             <input type="submit" class="submit_button">
         </form>
     </div>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+            <span class="logout_message">{{msg}}</span>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
     
 </body>
 </html>

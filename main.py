@@ -1,5 +1,5 @@
 import re
-from flask import Flask, sessions, url_for, redirect, render_template, request, session
+from flask import Flask, sessions, url_for, redirect, render_template, request, session, flash
 import sqlite3
 
 app = Flask(__name__)
@@ -50,6 +50,7 @@ def logout():
     session.pop("user_input", None)
     session.pop("parola_input", None)
     session.pop("pin_input", None)
+    flash("Ai fost delogat!")
     return redirect(url_for("login"))
               
 #Pagina main unde alegi baza de date sau intrebari

@@ -8,8 +8,8 @@ c = conn.cursor()
 # conn.commit()
 
 
-c.execute("INSERT INTO persoane VALUES(NULL, 'Ungureanu', 'Emil', 'xxxx-xxx-xxx', '16', 'Exemplu Adresa', '180', 'emyu4')")
-conn.commit()
+# c.execute("INSERT INTO persoane VALUES(NULL, 'Ungureanu', 'Emil', 'xxxx-xxx-xxx', '16', 'Exemplu Adresa', '180', 'emyu4')")
+# conn.commit()
 
 c.execute("SELECT * FROM persoane")
 
