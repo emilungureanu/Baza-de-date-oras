@@ -1,4 +1,3 @@
-import re
 from flask import Flask, sessions, url_for, redirect, render_template, request, session, flash
 import sqlite3
 
