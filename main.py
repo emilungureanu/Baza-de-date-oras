@@ -1,4 +1,3 @@
-import re
 from flask import Flask, sessions, url_for, redirect, render_template, request, session, flash
 import sqlite3
 
@@ -109,14 +108,16 @@ def adaugare_database():
         input_varsta = request.form["input_varsta"]
         input_cartier = request.form["input_cartier"]
         input_instagram = request.form["input_instagram"]
+        input_detalii = request.form["textarea-detalii"]
         
 
         conn = sqlite3.connect("db_informatii_principal.db")
         c = conn.cursor()
 
-        c.execute(f"INSERT INTO persoane VALUES(NULL, '{input_nume}', '{input_prenume}', '{input_telefon}', '{input_varsta}', '{input_cartier}', '180', '{input_instagram}')")
+        c.execute(f"INSERT INTO persoane VALUES(NULL, '{input_nume}', '{input_prenume}', '{input_telefon}', '{input_varsta}', '{input_cartier}', '180', '{input_instagram}', '{input_detalii}')")
         conn.commit()
         return redirect(url_for("main"))
+
 
 
 #Rulam programul flask
