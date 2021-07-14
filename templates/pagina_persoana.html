@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagina Persoana</title>
+</head>
+<body>
+    {% for informatie in content %}
+    <p>Nume: {{informatie[1]}}</p>
+    <p>Prenume: {{informatie[2]}}</p>
+    <p>Nr. de tel: {{informatie[3]}}</p>
+    <p>Varsta: {{informatie[4]}}</p>
+    <p>Cartier: {{informatie[5]}}</p>
+    <p>Instagram: {{informatie[7]}}</p>
+    <p>Detalii: </p>
+    {% endfor %}
+</body>
+</html>

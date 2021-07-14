@@ -6,3 +6,6 @@ emil
         -*
     *sa poata utilizator sa aleaga daca vrea ca intrebarea sa fie anonima sau nu(sa apara numele in baza de date privata)
     *sa avem o pagina de admin
+
+david
+    *de impartit proiectul in mai multe scripturi

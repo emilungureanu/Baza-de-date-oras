@@ -1,41 +1,57 @@
 .user_input_box{
-    position: absolute;
+    position: relative;
     background-color: rgb(100, 100, 100);
     color: rgb(255, 241, 231);
-    top: 20%;
+    margin-top: 40%;
     font-size: 150%;
     left: 10%;
+    width: 78%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
 }
 .parola_input_box{
-    position: absolute;
+    position: relative;
     color: rgb(255, 241, 231);
     background-color: rgb(100, 100, 100);
-    top: 26%;
+    margin-top: 3%;
     font-size: 150%;
     left: 10%;
+    width: 78%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
 }
 .pin_input_box{
-    position: absolute;
+    position: relative;
     color: rgb(255, 241, 231);
     background-color: rgb(100, 100, 100);
-    top: 32%;
+    margin-top: 3%;
     font-size: 150%;
     left: 10%;
+    width: 78%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
 }
 body{
     background-color: rgb(0, 0, 0);
+    overflow-y: hidden; /* Hide vertical scrollbar */
+    overflow-x: hidden;
 }
 .text_pdl{
     color: rgb(255, 255, 255);
+    position: absolute;
+    top: -1%;
+    left: 39%;
     text-align: center;
+    font-size: 220%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 .submit_button{
-    position: absolute;
+    position: relative;
     display: inline-block;
     width: 80%;
     height: 5%;
     left: 10%;
-    top: 40%;
+    margin-top: 5%;
     font-size: 24px;
     cursor: pointer;
     text-align: center;
@@ -44,5 +60,44 @@ body{
     color: rgb(255, 255, 255);
     background-color: rgb(83, 95, 255);
     border: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
    
+}
+
+.sectiune_culoare_login{
+    position: relative;
+    background-color: rgb(83, 95, 255);
+    z-index: 2;
+    width: 100%;
+    height: 9%;
+    top: 0%;
+}
+
+.logout_message{
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 75px;
+    padding-right: 80px;
+    text-align: center;
+    background-color: #f44336;
+    color: white;
+    position: absolute;
+    left: 6.6%;
+    top: 11%;
+}
+
+::-webkit-input-placeholder {
+    text-align: center;
+ }
+
+.div-principal {
+    position: relative;
 }
