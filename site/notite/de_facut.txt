@@ -1,0 +1,2 @@
+-Vurnerabilitate:
+    Poti sa intri pe alte pagini fara sa fii logat - De rezolvat
