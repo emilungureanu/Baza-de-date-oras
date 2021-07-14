@@ -87,8 +87,24 @@ def cautare_database():
 
         content1 = c.fetchall()
 
-        return redirect(url_for("pagina_persoana"))
+        #Pentru pagina persoana sa verifice cate persoane gaseste
+        len_content = len(content1)
 
+        if len_content == 1:
+            return redirect(url_for("pagina_persoana"))
+        else:
+            return redirect(url_for("lista_persoane"))
+
+
+@app.route("/lista_persoane", methods = ["POST", "GET"])
+def lista_persoane():
+    if request.method == "GET":
+        return render_template("lista_persoane.html", content = content1)
+
+    if request.method == "POST":
+        if request.form.get("buton_persoana"):
+            return render_template("informatii_persoane_din_lista.html", content = content1)
+        
 
 @app.route("/informatii_persoana")
 def pagina_persoana():
