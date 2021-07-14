@@ -40,7 +40,7 @@ def login():
             session["parola_input"] = parola_input
             session["pin_input"] = pin_input
 
-            return redirect(url_for("main"))
+            return redirect(url_for("alegere_cautare_adaugare"))
         else:
             return redirect(url_for("login"))
 
@@ -52,26 +52,8 @@ def logout():
     session.pop("pin_input", None)
     flash("Ai fost delogat!")
     return redirect(url_for("login"))
-              
-#Pagina main unde alegi baza de date sau intrebari
-@app.route("/main", methods = ["GET", "POST"])
-def main():
-    if "user_input" and "parola_input" and "pin_input" in session:
-        if request.method == "GET":
-            return render_template("index.html")
 
-
-        if request.method == "POST":
-            if request.form.get("buton_baza_de_date"):
-                return redirect(url_for("alegere_cautare_adaugare"))
-
-            if request.form.get("buton_intrebari"):
-                return "salut" # de pus intrebari
-
-                    
-    else:
-        return redirect(url_for("login"))
-
+           
 #Pagina alegere cautare sau adaugare persoane
 @app.route("/alegere_cautare_adaugare", methods= ["POST", "GET"])
 def alegere_cautare_adaugare():
