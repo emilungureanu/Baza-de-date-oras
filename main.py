@@ -52,7 +52,7 @@ def logout():
     flash("Ai fost delogat!")
     return redirect(url_for("login"))
               
-#Pagina main unde alegi baza de date sau intrebari
+#Pagina main unde alegi baza de date sau admin
 @app.route("/main", methods = ["GET", "POST"])
 def main():
     if "user_input" and "parola_input" and "pin_input" in session:
@@ -64,8 +64,8 @@ def main():
             if request.form.get("buton_baza_de_date"):
                 return redirect(url_for("alegere_cautare_adaugare"))
 
-            if request.form.get("buton_intrebari"):
-                return "salut" # de pus intrebari
+            if request.form.get("buton_admin"):
+                return render_template("admin.html")
 
                     
     else:
@@ -135,6 +135,7 @@ def adaugare_database():
         c.execute(f"INSERT INTO persoane VALUES(NULL, '{input_nume}', '{input_prenume}', '{input_telefon}', '{input_varsta}', '{input_cartier}', '180', '{input_instagram}', '{input_detalii}')")
         conn.commit()
         return redirect(url_for("main"))
+
 
 
 #Rulam programul flask
