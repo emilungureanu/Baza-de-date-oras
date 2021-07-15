@@ -1,4 +1,4 @@
-from flask import Flask, sessions, url_for, redirect, render_template, request, session, flash
+from flask import Flask, url_for, redirect, render_template, request, session, flash
 import sqlite3
 
 app = Flask(__name__)
@@ -80,7 +80,7 @@ def cautare_database():
 
         if ' ' in data_search_principal:
             lista_cuvinte_salvate = data_search_principal.split()
-            c.execute(f"SELECT * FROM persoane WHERE nume = '{lista_cuvinte_salvate[0].title() or lista_cuvinte_salvate[1].title()}' OR prenume = '{lista_cuvinte_salvate[0].title() or lista_cuvinte_salvate[1].title()}'")
+            c.execute(f"SELECT * FROM persoane WHERE nume = '{lista_cuvinte_salvate[0].title()}' OR nume = '{lista_cuvinte_salvate[1].title()}' AND prenume = '{lista_cuvinte_salvate[0].title()}' OR prenume = '{lista_cuvinte_salvate[1].title()}'")
 
         else:
             c.execute(f"SELECT * FROM persoane WHERE nume = '{data_search_principal.title()}' OR prenume = '{data_search_principal.title()}' OR telefon = '{data_search_principal}' OR instagram = '{data_search_principal}'")
@@ -89,7 +89,9 @@ def cautare_database():
 
         #Pentru pagina persoana sa verifice cate persoane gaseste
         len_content = len(content1)
-
+        
+        if len_content == 0:
+            return render_template("persoana_negasita.html")
         if len_content == 1:
             return redirect(url_for("pagina_persoana"))
         else:
@@ -117,8 +119,7 @@ def pagina_persoana_lista(nume_persoana):
 
     c.execute(f"SELECT * FROM persoane WHERE nume = '{lista_nume_despartit[0].title()}' AND prenume = '{lista_nume_despartit[1].title()}'")
     
-    return render_template("pagina_persoane_din_buton.html", content = c.fetchall())
-
+    return render_template("pagina_persoana.html", content = c.fetchall())
 
 
 

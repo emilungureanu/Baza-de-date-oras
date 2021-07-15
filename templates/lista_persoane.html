@@ -5,11 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
 </head>
 <body>
 
     {% for lista in content %}
-        <button type="button" onclick = "location.href = '/{{lista[1].lower()}}_{{lista[2].lower()}}' ">{{lista[1]}} {{lista[2]}}</button>
+        <button type="button" class = "buton_persoana_nume" onclick = "location.href = '/{{lista[1].lower()}}_{{lista[2].lower()}}' ">{{lista[1]}} {{lista[2]}}</button>
     {% endfor%}
 
 </body>
