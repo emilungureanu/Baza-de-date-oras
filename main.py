@@ -108,7 +108,6 @@ def pagina_persoana():
     return render_template("pagina_persoana.html", content = content1)
 
 
-#------------------------------------------------Nu merge----------------------------------------------------
 #Pagina informatie persoana cand ESTE o altercatie in baza de date
 @app.route("/<nume_persoana>")
 def pagina_persoana_lista(nume_persoana):
@@ -120,8 +119,6 @@ def pagina_persoana_lista(nume_persoana):
     
     return render_template("pagina_persoane_din_buton.html", content = c.fetchall())
 
-#De despartit numele inainte de al cauta
-#------------------------------------------------------------------------------------------------------
 
 
 
