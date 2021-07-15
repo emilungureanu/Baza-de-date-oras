@@ -114,8 +114,11 @@ def pagina_persoana():
 def pagina_persoana_lista(nume_persoana):
     conn = sqlite3.connect("db_informatii_principal.db")
     c = conn.cursor()
-    c.execute(f"SELECT * FROM persoane WHERE nume = '{nume_persoana}' OR prenume = '{nume_persoana}'")
-    return redirect(url_for("login"))
+    lista_nume_despartit = nume_persoana.split("_")
+
+    c.execute(f"SELECT * FROM persoane WHERE nume = '{lista_nume_despartit[0].title()}' AND prenume = '{lista_nume_despartit[1].title()}'")
+    
+    return render_template("pagina_persoane_din_buton.html", content = c.fetchall())
 
 #De despartit numele inainte de al cauta
 #------------------------------------------------------------------------------------------------------

@@ -7,10 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-
-    {% for lista in content %}
-        <button type="button" onclick = "location.href = '/{{lista[1].lower()}}_{{lista[2].lower()}}' ">{{lista[1]}} {{lista[2]}}</button>
-    {% endfor%}
-
+    {{content}}
 </body>
 </html>
