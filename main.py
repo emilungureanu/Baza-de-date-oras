@@ -64,7 +64,7 @@ def alegere_cautare_adaugare():
             return redirect(url_for("cautare_database"))
         if request.form.get("buton_adaugare"):
             return redirect(url_for("adaugare_database"))
-
+ 
 #Cautare in baza de date
 @app.route("/cautare_database", methods = ["GET", "POST"])
 def cautare_database():
@@ -95,20 +95,31 @@ def cautare_database():
         else:
             return redirect(url_for("lista_persoane"))
 
-
+#Pagina persoana cand ESTE o altercatie in baza de date
 @app.route("/lista_persoane", methods = ["POST", "GET"])
 def lista_persoane():
     if request.method == "GET":
         return render_template("lista_persoane.html", content = content1)
 
-    if request.method == "POST":
-        if request.form.get("buton_persoana"):
-            return render_template("informatii_persoane_din_lista.html", content = content1)
-        
-
+      
+#Pagina cu butoane persoane cand NU este nicio altercatie in baza de date
 @app.route("/informatii_persoana")
 def pagina_persoana():
     return render_template("pagina_persoana.html", content = content1)
+
+
+#------------------------------------------------Nu merge----------------------------------------------------
+#Pagina informatie persoana cand ESTE o altercatie in baza de date
+@app.route("/<nume_persoana>")
+def pagina_persoana_lista(nume_persoana):
+    conn = sqlite3.connect("db_informatii_principal.db")
+    c = conn.cursor()
+    c.execute(f"SELECT * FROM persoane WHERE nume = '{nume_persoana}' OR prenume = '{nume_persoana}'")
+    return redirect(url_for("login"))
+
+#De despartit numele inainte de al cauta
+#------------------------------------------------------------------------------------------------------
+
 
 
 #Adaugare in baza de date

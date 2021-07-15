@@ -7,10 +7,10 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="#" method="post">
-        {% for lista in content %}
-            <button type="text" name="buton_persoana" value="buton_persoana">{{lista[1]}} {{lista[2]}}</button>
-        {% endfor%}
-    </form>
+
+    {% for lista in content %}
+        <button type="button" onclick = "location.href = '/miau'">{{lista[1]}} {{lista[2]}}</button>
+    {% endfor%}
+
 </body>
 </html>
