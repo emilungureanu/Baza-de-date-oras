@@ -56,14 +56,19 @@ def logout():
 #Pagina alegere cautare sau adaugare persoane
 @app.route("/alegere_cautare_adaugare", methods= ["POST", "GET"])
 def alegere_cautare_adaugare():
-    if request.method == "GET":
-        return render_template("alegere_adaugare_sau_vizionare.html")
-    
-    if request.method == "POST":
-        if request.form.get("buton_cautare"):
-            return redirect(url_for("cautare_database"))
-        if request.form.get("buton_adaugare"):
-            return redirect(url_for("adaugare_database"))
+    if "user_input" and "parola_input" and "pin_input" in session:
+
+        if request.method == "GET":
+            return render_template("alegere_adaugare_sau_vizionare.html")
+        
+        if request.method == "POST":
+            if request.form.get("buton_cautare"):
+                return redirect(url_for("cautare_database"))
+            if request.form.get("buton_adaugare"):
+                return redirect(url_for("adaugare_database"))
+
+    else:
+        return redirect(url_for("login"))
  
 #Cautare in baza de date
 @app.route("/cautare_database", methods = ["GET", "POST"])
@@ -72,79 +77,102 @@ def cautare_database():
     conn = sqlite3.connect("db_informatii_principal.db")
     c = conn.cursor()
 
-    if request.method == "GET":
-        return render_template("cautare_database.html")
+    if "user_input" and "parola_input" and "pin_input" in session:
 
-    if request.method == "POST":
-        data_search_principal = request.form["search_principal"]
+        if request.method == "GET":
+            return render_template("cautare_database.html")
 
-        if ' ' in data_search_principal:
-            lista_cuvinte_salvate = data_search_principal.split()
-            c.execute(f"SELECT * FROM persoane WHERE nume = '{lista_cuvinte_salvate[0].title()}' OR nume = '{lista_cuvinte_salvate[1].title()}' AND prenume = '{lista_cuvinte_salvate[0].title()}' OR prenume = '{lista_cuvinte_salvate[1].title()}'")
+        if request.method == "POST":
+            data_search_principal = request.form["search_principal"]
 
-        else:
-            c.execute(f"SELECT * FROM persoane WHERE nume = '{data_search_principal.title()}' OR prenume = '{data_search_principal.title()}' OR telefon = '{data_search_principal}' OR instagram = '{data_search_principal}'")
+            if ' ' in data_search_principal:
+                lista_cuvinte_salvate = data_search_principal.split()
+                c.execute(f"SELECT * FROM persoane WHERE nume = '{lista_cuvinte_salvate[0].title()}' OR nume = '{lista_cuvinte_salvate[1].title()}' AND prenume = '{lista_cuvinte_salvate[0].title()}' OR prenume = '{lista_cuvinte_salvate[1].title()}'")
 
-        content1 = c.fetchall()
+            else:
+                c.execute(f"SELECT * FROM persoane WHERE nume = '{data_search_principal.title()}' OR prenume = '{data_search_principal.title()}' OR telefon = '{data_search_principal}' OR instagram = '{data_search_principal}'")
 
-        #Pentru pagina persoana sa verifice cate persoane gaseste
-        len_content = len(content1)
-        
-        if len_content == 0:
-            return render_template("persoana_negasita.html")
-        if len_content == 1:
-            return redirect(url_for("pagina_persoana"))
-        else:
-            return redirect(url_for("lista_persoane"))
+            content1 = c.fetchall()
+
+            #Pentru pagina persoana sa verifice cate persoane gaseste
+            len_content = len(content1)
+            
+            if len_content == 0:
+                return render_template("persoana_negasita.html")
+            if len_content == 1:
+                return redirect(url_for("pagina_persoana"))
+            else:
+                return redirect(url_for("lista_persoane"))
+
+    else:
+        return redirect(url_for("login"))
 
 #Pagina persoana cand ESTE o altercatie in baza de date
 @app.route("/lista_persoane", methods = ["POST", "GET"])
 def lista_persoane():
-    if request.method == "GET":
-        return render_template("lista_persoane.html", content = content1)
+    if "user_input" and "parola_input" and "pin_input" in session:
 
-      
+        if request.method == "GET":
+            return render_template("lista_persoane.html", content = content1)
+
+    else:
+        return redirect(url_for("login"))
+
 #Pagina cu butoane persoane cand NU este nicio altercatie in baza de date
 @app.route("/informatii_persoana")
 def pagina_persoana():
-    return render_template("pagina_persoana.html", content = content1)
+    if "user_input" and "parola_input" and "pin_input" in session:
+    
+        return render_template("pagina_persoana.html", content = content1)
+
+    else:
+        return redirect(url_for("login"))
 
 
 #Pagina informatie persoana cand ESTE o altercatie in baza de date
 @app.route("/<nume_persoana>")
 def pagina_persoana_lista(nume_persoana):
-    conn = sqlite3.connect("db_informatii_principal.db")
-    c = conn.cursor()
-    lista_nume_despartit = nume_persoana.split("_")
+    if "user_input" and "parola_input" and "pin_input" in session:
 
-    c.execute(f"SELECT * FROM persoane WHERE nume = '{lista_nume_despartit[0].title()}' AND prenume = '{lista_nume_despartit[1].title()}'")
-    
-    return render_template("pagina_persoana.html", content = c.fetchall())
+        conn = sqlite3.connect("db_informatii_principal.db")
+        c = conn.cursor()
+        lista_nume_despartit = nume_persoana.split("_")
 
+        c.execute(f"SELECT * FROM persoane WHERE nume = '{lista_nume_despartit[0].title()}' AND prenume = '{lista_nume_despartit[1].title()}'")
+        
+        return render_template("pagina_persoana.html", content = c.fetchall())
 
+    else:
+        return redirect(url_for("login"))  
 
 #Adaugare in baza de date
 @app.route("/adaugare_database", methods = ["POST", "GET"])
 def adaugare_database():
-    if request.method == "GET":
-        return render_template("adaugare_database.html")
+    if "user_input" and "parola_input" and "pin_input" in session:
 
-    if request.method == "POST":
-        input_nume = request.form["input_nume"]
-        input_prenume = request.form["input_prenume"]
-        input_telefon = request.form["input_telefon"]
-        input_varsta = request.form["input_varsta"]
-        input_cartier = request.form["input_cartier"]
-        input_instagram = request.form["input_instagram"]
-        input_detalii = request.form["textarea-detalii"]
-        
+        if request.method == "GET":
+            return render_template("adaugare_database.html")
 
-        conn = sqlite3.connect("db_informatii_principal.db")
-        c = conn.cursor()
+        if request.method == "POST":
+            input_nume = request.form["input_nume"]
+            input_prenume = request.form["input_prenume"]
+            input_telefon = request.form["input_telefon"]
+            input_varsta = request.form["input_varsta"]
+            input_cartier = request.form["input_cartier"]
+            input_instagram = request.form["input_instagram"]
+            input_detalii = request.form["textarea-detalii"]
+            
 
-        c.execute(f"INSERT INTO persoane VALUES(NULL, '{input_nume}', '{input_prenume}', '{input_telefon}', '{input_varsta}', '{input_cartier}', '180', '{input_instagram}', '{input_detalii}')")
-        conn.commit()
-        return redirect(url_for("main"))
+            conn = sqlite3.connect("db_informatii_principal.db")
+            c = conn.cursor()
+
+            c.execute(f"INSERT INTO persoane VALUES(NULL, '{input_nume}', '{input_prenume}', '{input_telefon}', '{input_varsta}', '{input_cartier}', '180', '{input_instagram}', '{input_detalii}')")
+            conn.commit()
+            return redirect(url_for("main"))
+
+    else:
+        return redirect(url_for("login"))
+
 
 
 
