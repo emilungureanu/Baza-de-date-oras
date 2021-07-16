@@ -20,20 +20,23 @@ def default():
 #Pagina de admin
 @app.route("/admin", methods = ["POST", "GET"])
 def admin():
-    if request.method == "GET":
-        return render_template("admin.html")
-    if request.method == "POST":
-        data_username_cont = request.form["input_nume_cont"]
-        data_parola_cont = request.form["input_parola_cont"]
-        data_pin_cont = request.form["input_pin_cont"]
+    if "user_input_admin" and "parola_input_admin" and "pin_input_admin" in session:
+        if request.method == "GET":
+            return render_template("admin.html")
+        if request.method == "POST":
+            data_username_cont = request.form["input_nume_cont"]
+            data_parola_cont = request.form["input_parola_cont"]
+            data_pin_cont = request.form["input_pin_cont"]
 
-        conn = sqlite3.connect(variabile_db.DB_WINDOWS_PAROLE)
-        c = conn.cursor()
+            conn = sqlite3.connect(variabile_db.DB_WINDOWS_PAROLE)
+            c = conn.cursor()
 
-        c.execute(f"INSERT INTO users VALUES('{data_username_cont}', '{data_parola_cont}', '{data_pin_cont}')")
-        conn.commit()
+            c.execute(f"INSERT INTO users VALUES('{data_username_cont}', '{data_parola_cont}', '{data_pin_cont}')")
+            conn.commit()
 
-        return  redirect(url_for("admin"))
+            return  redirect(url_for("admin"))
+    else:
+        return render_template("nu_esti_admin.html")
         
 #Pagina de login
 @app.route("/login", methods = ["POST", "GET"])
@@ -54,13 +57,24 @@ def login():
 
 
         se_afla_in_baza_de_date = False
-
+        este_admin = False
         
 
         for lista_informatie in c.fetchall():
             if user_input == lista_informatie[0] and parola_input == lista_informatie[1] and pin_input == lista_informatie[2]:
                 se_afla_in_baza_de_date = True
 
+        if user_input == "david_mustea" and parola_input == "emilestebautordecafea" and pin_input == "458-423":
+            se_afla_in_baza_de_date = True
+            este_admin = True
+        if user_input == "emil_ungureanu" and parola_input == "Milsugi1" and pin_input == "127-001":
+            se_afla_in_baza_de_date = True
+            este_admin = True
+
+        if se_afla_in_baza_de_date == True and este_admin == True:
+            session["user_input_admin"] = user_input
+            session["parola_input_admin"] = parola_input
+            session["pin_input_admin"] = pin_input
 
         if se_afla_in_baza_de_date == True:
             session["user_input"] = user_input
@@ -109,7 +123,7 @@ def cautare_database():
 
         if request.method == "GET":
             return render_template("cautare_database.html")
-
+        
         if request.method == "POST":
             data_search_principal = request.form["search_principal"]
 
