@@ -1,6 +1,7 @@
 from flask import Flask, url_for, redirect, render_template, request, session, flash, send_from_directory
 import sqlite3
 import os
+import variabile_db
 
 app = Flask(__name__)
 app.secret_key = "miau"
@@ -15,6 +16,25 @@ def favicon():
 def default():
     return redirect(url_for("login"))
 
+
+#Pagina de admin
+@app.route("/admin", methods = ["POST", "GET"])
+def admin():
+    if request.method == "GET":
+        return render_template("admin.html")
+    if request.method == "POST":
+        data_username_cont = request.form["input_nume_cont"]
+        data_parola_cont = request.form["input_parola_cont"]
+        data_pin_cont = request.form["input_pin_cont"]
+
+        conn = sqlite3.connect(variabile_db.DB_WINDOWS_PAROLE)
+        c = conn.cursor()
+
+        c.execute(f"INSERT INTO users VALUES('{data_username_cont}', '{data_parola_cont}', '{data_pin_cont}')")
+        conn.commit()
+
+        return  redirect(url_for("admin"))
+        
 #Pagina de login
 @app.route("/login", methods = ["POST", "GET"])
 def login():
@@ -23,7 +43,7 @@ def login():
         return render_template("login.html")
 
     if request.method == "POST":
-        conn = sqlite3.connect("//var//www//webApp//webApp//db_user_parole.db")
+        conn = sqlite3.connect(variabile_db.DB_WINDOWS_PAROLE)
         c = conn.cursor()
         c.execute("SELECT * FROM users")
 
@@ -35,6 +55,7 @@ def login():
 
         se_afla_in_baza_de_date = False
 
+        
 
         for lista_informatie in c.fetchall():
             if user_input == lista_informatie[0] and parola_input == lista_informatie[1] and pin_input == lista_informatie[2]:
@@ -81,7 +102,7 @@ def alegere_cautare_adaugare():
 @app.route("/cautare_database", methods = ["GET", "POST"])
 def cautare_database():
     global content1
-    conn = sqlite3.connect("//var//www//webApp//webApp//db_informatii_principal.db")
+    conn = sqlite3.connect(variabile_db.DB_WINDOWS_INFORMATII)
     c = conn.cursor()
 
     if "user_input" and "parola_input" and "pin_input" in session:
@@ -141,7 +162,7 @@ def pagina_persoana():
 def pagina_persoana_lista(nume_persoana):
     if "user_input" and "parola_input" and "pin_input" in session:
 
-        conn = sqlite3.connect("//var//www//webApp//webApp//db_informatii_principal.db")
+        conn = sqlite3.connect(variabile_db.DB_WINDOWS_INFORMATII)
         c = conn.cursor()
         lista_nume_despartit = nume_persoana.split("_")
 
@@ -170,7 +191,7 @@ def adaugare_database():
             input_detalii = request.form["textarea-detalii"]
             
 
-            conn = sqlite3.connect("//var//www//webApp//webApp//db_informatii_principal.db")
+            conn = sqlite3.connect(variabile_db.DB_WINDOWS_INFORMATII)
             c = conn.cursor()
 
             c.execute(f"INSERT INTO persoane VALUES(NULL, '{input_nume}', '{input_prenume}', '{input_telefon}', '{input_varsta}', '{input_cartier}', '180', '{input_instagram}', '{input_detalii}')")

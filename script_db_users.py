@@ -8,8 +8,8 @@ c = conn.cursor()
 #conn.commit()
 
 
-c.execute("INSERT INTO users VALUES('david_mustea', '1234ahb', '458-423')")
-conn.commit()
+# c.execute("INSERT INTO users VALUES('david_mustea', '1234ahb', '458-423')")
+# conn.commit()
 
 c.execute("SELECT * FROM users")
 
