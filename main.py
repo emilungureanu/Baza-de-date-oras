@@ -40,6 +40,7 @@ def login():
             if user_input == lista_informatie[0] and parola_input == lista_informatie[1] and pin_input == lista_informatie[2]:
                 se_afla_in_baza_de_date = True
 
+
         if se_afla_in_baza_de_date == True:
             session["user_input"] = user_input
             session["parola_input"] = parola_input
@@ -174,7 +175,7 @@ def adaugare_database():
 
             c.execute(f"INSERT INTO persoane VALUES(NULL, '{input_nume}', '{input_prenume}', '{input_telefon}', '{input_varsta}', '{input_cartier}', '180', '{input_instagram}', '{input_detalii}')")
             conn.commit()
-            return redirect(url_for("main"))
+            return redirect(url_for("alegere_cautare_adaugare"))
 
     else:
         return redirect(url_for("login"))
