@@ -23,7 +23,7 @@ def login():
         return render_template("login.html")
 
     if request.method == "POST":
-        conn = sqlite3.connect("//var//www//webApp//webApp//db_user_parole.db")
+        conn = sqlite3.connect("db_user_parole.db")
         c = conn.cursor()
         c.execute("SELECT * FROM users")
 
@@ -81,7 +81,7 @@ def alegere_cautare_adaugare():
 @app.route("/cautare_database", methods = ["GET", "POST"])
 def cautare_database():
     global content1
-    conn = sqlite3.connect("//var//www//webApp//webApp//db_informatii_principal.db")
+    conn = sqlite3.connect("db_informatii_principal.db")
     c = conn.cursor()
 
     if "user_input" and "parola_input" and "pin_input" in session:
@@ -141,7 +141,7 @@ def pagina_persoana():
 def pagina_persoana_lista(nume_persoana):
     if "user_input" and "parola_input" and "pin_input" in session:
 
-        conn = sqlite3.connect("//var//www//webApp//webApp//db_informatii_principal.db")
+        conn = sqlite3.connect("db_informatii_principal.db")
         c = conn.cursor()
         lista_nume_despartit = nume_persoana.split("_")
 
@@ -170,12 +170,12 @@ def adaugare_database():
             input_detalii = request.form["textarea-detalii"]
             
 
-            conn = sqlite3.connect("//var//www//webApp//webApp//db_informatii_principal.db")
+            conn = sqlite3.connect("db_informatii_principal.db")
             c = conn.cursor()
 
             c.execute(f"INSERT INTO persoane VALUES(NULL, '{input_nume}', '{input_prenume}', '{input_telefon}', '{input_varsta}', '{input_cartier}', '180', '{input_instagram}', '{input_detalii}')")
             conn.commit()
-            return redirect(url_for("alegere_cautare_adaugare"))
+            return redirect(url_for("adaugare_database"))
 
     else:
         return redirect(url_for("login"))
