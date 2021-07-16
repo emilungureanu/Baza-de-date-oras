@@ -1,8 +1,14 @@
-from flask import Flask, url_for, redirect, render_template, request, session, flash
+from flask import Flask, url_for, redirect, render_template, request, session, flash, send_from_directory
 import sqlite3
+import os
 
 app = Flask(__name__)
 app.secret_key = "miau"
+
+#Icon norisor
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 #Pagina default care redirectioneaza pe login
 @app.route("/")
