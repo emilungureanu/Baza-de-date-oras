@@ -16,31 +16,11 @@ def default():
     return redirect(url_for("login"))
 
 
-#Pagina de admin
-@app.route("/admin", methods = ["POST", "GET"])
-def admin():
-    if "user_input_admin" and "parola_input_admin" and "pin_input_admin" in session:
-        if request.method == "GET":
-            return render_template("admin.html")
-        if request.method == "POST":
-            data_username_cont = request.form["input_nume_cont"]
-            data_parola_cont = request.form["input_parola_cont"]
-            data_pin_cont = request.form["input_pin_cont"]
-
-            conn = sqlite3.connect("//var//www//webApp//webApp//db_user_parole.db")
-            c = conn.cursor()
-
-            c.execute(f"INSERT INTO users VALUES('{data_username_cont}', '{data_parola_cont}', '{data_pin_cont}')")
-            conn.commit()
-
-            return  redirect(url_for("admin"))
-    else:
-        return render_template("nu_esti_admin.html")
         
 #Pagina de login
 @app.route("/login", methods = ["POST", "GET"])
 def login():
-    global user_input, parola_input, pin_input
+    global user_input, parola_input
     if request.method == "GET":
         return render_template("login.html")
 
@@ -52,7 +32,6 @@ def login():
 
         user_input = request.form["user_input"]
         parola_input = request.form["parola_input"]
-        pin_input = request.form["pin_input"]
 
 
         se_afla_in_baza_de_date = False
@@ -60,25 +39,12 @@ def login():
         
 
         for lista_informatie in c.fetchall():
-            if user_input == lista_informatie[0] and parola_input == lista_informatie[1] and pin_input == lista_informatie[2]:
+            if user_input == lista_informatie[0] and parola_input == lista_informatie[1]:
                 se_afla_in_baza_de_date = True
-
-        if user_input == "david_mustea" and parola_input == "emilestebautordecafea" and pin_input == "458-423":
-            se_afla_in_baza_de_date = True
-            este_admin = True
-        if user_input == "emil_ungureanu" and parola_input == "Milsugi1" and pin_input == "127-001":
-            se_afla_in_baza_de_date = True
-            este_admin = True
-
-        if se_afla_in_baza_de_date == True and este_admin == True:
-            session["user_input_admin"] = user_input
-            session["parola_input_admin"] = parola_input
-            session["pin_input_admin"] = pin_input
 
         if se_afla_in_baza_de_date == True:
             session["user_input"] = user_input
             session["parola_input"] = parola_input
-            session["pin_input"] = pin_input
 
             return redirect(url_for("alegere_cautare_adaugare"))
         else:
@@ -89,7 +55,6 @@ def login():
 def logout():
     session.pop("user_input", None)
     session.pop("parola_input", None)
-    session.pop("pin_input", None)
     flash("Ai fost delogat!")
     return redirect(url_for("login"))
 
@@ -97,7 +62,7 @@ def logout():
 #Pagina alegere cautare sau adaugare persoane
 @app.route("/alegere_cautare_adaugare", methods= ["POST", "GET"])
 def alegere_cautare_adaugare():
-    if "user_input" and "parola_input" and "pin_input" in session:
+    if "user_input" and "parola_input" in session:
 
         if request.method == "GET":
             return render_template("alegere_adaugare_sau_vizionare.html")
@@ -118,7 +83,7 @@ def cautare_database():
     conn = sqlite3.connect("//var//www//webApp//webApp//db_informatii_principal.db")
     c = conn.cursor()
 
-    if "user_input" and "parola_input" and "pin_input" in session:
+    if "user_input" and "parola_input" in session:
 
         if request.method == "GET":
             return render_template("cautare_database.html")
@@ -204,7 +169,7 @@ def adaugare_database():
             input_detalii = request.form["textarea-detalii"]
             
 
-            conn = sqlite3.connect("//var//www//webApp//webApp//db_informatii_principal.db")
+            conn = sqlite3.connect("db_informatii_principal.db")
             c = conn.cursor()
 
             c.execute(f"INSERT INTO persoane VALUES(NULL, '{input_nume}', '{input_prenume}', '{input_telefon}', '{input_varsta}', '{input_cartier}', '180', '{input_instagram}', '{input_detalii}')")
@@ -220,3 +185,23 @@ def adaugare_database():
 #Rulam programul flask
 if __name__ == "__main__":
     app.run(debug=True)
+
+#Pagina de admin
+@app.route("/admin", methods = ["POST", "GET"])
+def admin():
+    if "user_input_admin" and "parola_input_admin" in session:
+        if request.method == "GET":
+            return render_template("admin.html")
+        if request.method == "POST":
+            data_username_cont = request.form["input_nume_cont"]
+            data_parola_cont = request.form["input_parola_cont"]
+
+            conn = sqlite3.connect("//var//www//webApp//webApp//db_user_parole.db")
+            c = conn.cursor()
+
+            c.execute(f"INSERT INTO users VALUES('{data_username_cont}', '{data_parola_cont}')")
+            conn.commit()
+
+            return  redirect(url_for("admin"))
+    else:
+        return render_template("nu_esti_admin.html")
